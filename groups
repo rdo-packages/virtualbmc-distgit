@@ -1,5 +1,6 @@
-# UUID          Group Name
-False 	Non-Interactive Users
-af433f95b48c744f0a9ad18a85126b17ad648478       	openstack/virtualbmc-distgit-core
-cb6aeaf3893d52d905ee567b90c50c9c9a610dac        	openstack/virtualbmc-distgit-ptl
-global:Registered-Users		Registered Users
+# UUID                                  	Group Name
+#
+63673ea7f2ae6a5666566b1ea9f14e473d00f5a9	rdo-core
+af433f95b48c744f0a9ad18a85126b17ad648478	openstack/virtualbmc-distgit-core
+cb6aeaf3893d52d905ee567b90c50c9c9a610dac	openstack/virtualbmc-distgit-ptl
+global:Registered-Users                 	Registered Users
