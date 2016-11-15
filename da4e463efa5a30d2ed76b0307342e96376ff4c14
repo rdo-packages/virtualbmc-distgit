@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5adbc538_70e2d1d6",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2016-11-15T11:43:35Z",
+      "side": 1,
+      "message": "Even if there\u0027s no python3-pyghmi, let\u0027s use its name, as that\u0027s the one that we will need once it\u0027s done.",
+      "range": {
+        "startLine": 61,
+        "startChar": 9,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "da4e463efa5a30d2ed76b0307342e96376ff4c14",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5adbc538_90e75de4",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2016-11-15T11:43:35Z",
+      "side": 1,
+      "message": "nit: blank",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 7
+      },
+      "revId": "da4e463efa5a30d2ed76b0307342e96376ff4c14",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
