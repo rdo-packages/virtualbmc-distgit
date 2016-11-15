@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5adbc538_10498dd0",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2016-11-15T13:04:47Z",
+      "side": 1,
+      "message": "I guess libvirt-python3 is missing here.",
+      "revId": "7544d2e1b1b2c6c15a7544cad50bb80c1b8fe6d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5adbc538_501235b5",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2016-11-15T13:04:47Z",
+      "side": 1,
+      "message": "We have %{_bindir}/vbmc defined in both the python2 and python3 subpackages, which is an issue if we want to install both at the same time.\n\nIt\u0027s not a short-term issue (no python3 subpkg being created), but we\u0027d better fix it now to avoid the trouble once the python3 subpackage is enabled.\n\nYou can use https://github.com/rdo-packages/vitrageclient-distgit/blob/rpm-master/python-vitrageclient.spec#L130-L134 and https://github.com/rdo-packages/vitrageclient-distgit/blob/rpm-master/python-vitrageclient.spec#L164-L165 as an example of how to deal with this.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 15
+      },
+      "revId": "7544d2e1b1b2c6c15a7544cad50bb80c1b8fe6d0",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
