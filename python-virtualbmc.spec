@@ -32,6 +32,7 @@ Requires: libvirt-python
 Requires: python-pbr
 Requires: python-pyghmi
 Requires: python-prettytable
+Requires: python-setuptools
 Requires: python-six
 
 Requires(pre): shadow-utils
@@ -61,6 +62,7 @@ BuildRequires: python3-oslo-sphinx
 Requires: libvirt-python3
 Requires: python3-pbr
 Requires: python3-prettytable
+Requires: python3-setuptools
 Requires: python3-six
 # FIXME(lucasagomes): pyghmi does not support Python3 for now
 Requires: python3-pyghmi
