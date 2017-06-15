@@ -156,3 +156,4 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
 - Initial package.
+
