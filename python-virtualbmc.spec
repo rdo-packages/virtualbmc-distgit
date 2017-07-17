@@ -55,8 +55,6 @@ Summary: A virtual BMC for controlling virtual machines using IPMI commands
 BuildRequires: python3-devel
 BuildRequires: python3-pbr
 BuildRequires: python3-setuptools
-BuildRequires: python3-sphinx
-BuildRequires: python3-oslo-sphinx
 
 Requires: libvirt-python3
 Requires: python3-pbr
@@ -81,7 +79,7 @@ Tests for VirtualBMC.
 Summary: VirtualBMC documentation
 
 BuildRequires: python-sphinx
-BuildRequires: python-oslo-sphinx
+BuildRequires: python-openstackdocstheme
 
 %description -n python-%{sname}-doc
 Documentation for VirtualBMC.
@@ -99,9 +97,9 @@ rm -f *requirements.txt
 %endif # with_python3
 
 # generate html docs
-%{__python2} setup.py build_sphinx
+%{__python2} setup.py build_sphinx -b html
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %install
 %py2_install
