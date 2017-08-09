@@ -151,3 +151,4 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %changelog
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
 - Initial package.
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/virtualbmc/commit/?id=ef2c8818e6139904027830435171aff14c6b2407
