@@ -79,6 +79,8 @@ Tests for VirtualBMC.
 Summary: VirtualBMC documentation
 
 BuildRequires: python-sphinx
+# FIXME: remove following line when a new release including https://review.openstack.org/#/c/483907/ is in u-c
+BuildRequires: python-oslo-sphinx
 BuildRequires: python-openstackdocstheme
 
 %description -n python-%{sname}-doc
