@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa81d914_dfbd5f04",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 424
+      },
+      "writtenOn": "2017-10-03T13:36:19Z",
+      "side": 1,
+      "message": "missed this one",
+      "revId": "82e0de7d91f7d271968218434648e3bfc903385c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa81d914_ffba2309",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 424
+      },
+      "writtenOn": "2017-10-03T13:36:19Z",
+      "side": 1,
+      "message": "and this",
+      "revId": "82e0de7d91f7d271968218434648e3bfc903385c",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
