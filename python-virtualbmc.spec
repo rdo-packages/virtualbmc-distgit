@@ -5,6 +5,8 @@
 %global with_python3 0
 %global sname virtualbmc
 
+%global common_desc A virtual BMC for controlling virtual machines using IPMI commands.
+
 Name: python-%{sname}
 Version: XXX
 Release: XXX
@@ -17,7 +19,7 @@ Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar
 BuildArch: noarch
 
 %description
-A virtual BMC for controlling virtual machines using IPMI commands.
+%{common_desc}
 
 %package -n python2-%{sname}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
@@ -37,7 +39,7 @@ Requires: python-six
 Requires(pre): shadow-utils
 
 %description -n python2-%{sname}
-A virtual BMC for controlling virtual machines using IPMI commands.
+%{common_desc}
 
 %package -n python2-%{sname}-tests
 Summary: VirtualBMC tests
@@ -64,7 +66,7 @@ Requires: python3-six
 Requires: python3-pyghmi
 
 %description -n python3-%{sname}
-A virtual BMC for controlling virtual machines using IPMI commands.
+%{common_desc}
 
 %package -n python3-%{sname}-tests
 Summary: VirtualBMC tests
