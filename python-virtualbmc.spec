@@ -28,15 +28,15 @@ Summary: A virtual BMC for controlling virtual machines using IPMI commands
 %{?python_provide:%python_provide python2-%{sname}}
 
 BuildRequires: python2-devel
-BuildRequires: python-pbr
-BuildRequires: python-setuptools
+BuildRequires: python2-pbr
+BuildRequires: python2-setuptools
 BuildRequires: git
 
 Requires: libvirt-python
-Requires: python-pbr
-Requires: python-pyghmi
-Requires: python-prettytable
-Requires: python-six
+Requires: python2-pbr
+Requires: python2-pyghmi
+Requires: python2-prettytable
+Requires: python2-six
 
 Requires(pre): shadow-utils
 
@@ -82,10 +82,8 @@ Requires: python3-%{sname} = %{version}-%{release}
 %package -n python-%{sname}-doc
 Summary: VirtualBMC documentation
 
-BuildRequires: python-sphinx
-# FIXME: remove following line when a new release including https://review.openstack.org/#/c/483907/ is in u-c
-BuildRequires: python-oslo-sphinx
-BuildRequires: python-openstackdocstheme
+BuildRequires: python2-sphinx
+BuildRequires: python2-openstackdocstheme
 BuildRequires: openstack-macros
 
 %description -n python-%{sname}-doc
