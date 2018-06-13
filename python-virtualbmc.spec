@@ -17,6 +17,7 @@ License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
 
 Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz
+Source1: %{sname}.service
 
 BuildArch: noarch
 
@@ -31,6 +32,8 @@ BuildRequires: python2-devel
 BuildRequires: python2-pbr
 BuildRequires: python2-setuptools
 BuildRequires: git
+BuildRequires: systemd
+BuildRequires: systemd-units
 
 Requires: libvirt-python
 Requires: python2-pbr
@@ -39,6 +42,7 @@ Requires: python2-prettytable
 Requires: python2-six
 
 Requires(pre): shadow-utils
+%{?systemd_requires}
 
 %description -n python2-%{sname}
 %{common_desc}
@@ -114,6 +118,13 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 pushd %{buildroot}/%{_bindir}
 mv vbmc vbmc-3
 ln -s vbmc-3 vbmc-%{python3_version}
+mv vbmcd vbmcd-3
+ln -s vbmcd-3 vbmcd-%{python3_version}
+popd
+# rename systemd service unit file
+pushd %{buildroot}/%{_unitdir}
+mv virtualbmc.service virtualbmc-3.service
+sed --in-place 's/\/usr\/bin\/vbmcd/\/usr\/bin\/vbmcd-3/g' virtualbmc-3.service
 popd
 %endif # with_python3
 
@@ -122,9 +133,38 @@ install -d -m 755 %{buildroot}%{_datadir}/%{sname}
 install -d -m 755 %{buildroot}%{_sharedstatedir}/%{sname}
 install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 
+# Install systemd units
+install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
+
+%if 0%{?with_python3}
+
+%post
+%systemd_post %{sname}-3.service
+
+%preun
+%systemd_preun %{sname}-3.service
+
+%postun
+%systemd_postun_with_restart %{sname}-3.service
+
+%else
+
+%post
+%systemd_post %{sname}.service
+
+%preun
+%systemd_preun %{sname}.service
+
+%postun
+%systemd_postun_with_restart %{sname}.service
+
+%endif # with_python3
+
 %files -n python2-%{sname}
 %license LICENSE
 %{_bindir}/vbmc
+%{_bindir}/vbmcd
+%{_unitdir}/%{sname}.service
 %{python2_sitelib}/%{sname}
 %{python2_sitelib}/%{sname}-*.egg-info
 %exclude %{python2_sitelib}/%{sname}/tests
@@ -138,7 +178,10 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %files python3-%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
+%{_bindir}/vbmcd-3
 %{_bindir}/vbmc-%{python3_version}
+%{_bindir}/vbmcd-%{python3_version}
+%{_unitdir}/%{sname}-3.service
 %{python3_sitelib}/%{sname}
 %{python3_sitelib}/%{sname}-*.egg-info
 %exclude %{python3_sitelib}/%{sname}/tests
@@ -154,5 +197,7 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %doc doc/build/html README.rst
 
 %changelog
+* Tue Aug 31 2018 Ilya Etingof <etingof@gmail.com> 0.2.0-1
+- systemd unit file added
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
 - Initial package.
