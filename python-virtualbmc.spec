@@ -114,6 +114,8 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 pushd %{buildroot}/%{_bindir}
 mv vbmc vbmc-3
 ln -s vbmc-3 vbmc-%{python3_version}
+mv vbmcd vbmcd-3
+ln -s vbmcd-3 vbmcd-%{python3_version}
 popd
 %endif # with_python3
 
@@ -125,6 +127,8 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %files -n python2-%{sname}
 %license LICENSE
 %{_bindir}/vbmc
+%{_bindir}/vbmcd
+%{_unitdir}/virtualbmc.service
 %{python2_sitelib}/%{sname}
 %{python2_sitelib}/%{sname}-*.egg-info
 %exclude %{python2_sitelib}/%{sname}/tests
@@ -138,7 +142,10 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %files python3-%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
+%{_bindir}/vbmcd-3
 %{_bindir}/vbmc-%{python3_version}
+%{_bindir}/vbmcd-%{python3_version}
+%{_unitdir}/virtualbmc-3.service
 %{python3_sitelib}/%{sname}
 %{python3_sitelib}/%{sname}-*.egg-info
 %exclude %{python3_sitelib}/%{sname}/tests
@@ -156,3 +163,5 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %changelog
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
 - Initial package.
+* Tue Aug 31 2018 Ilya Etingfo <etingof@gmail.com> 0.2.0-1
+- systemd unit file added
