@@ -1,0 +1,12 @@
+[Unit]
+Description=Virtual Baseboard Management Controller Emulation service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/vbmcd
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
