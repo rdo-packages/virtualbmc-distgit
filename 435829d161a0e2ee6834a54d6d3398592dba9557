@@ -16,6 +16,24 @@
       "revId": "435829d161a0e2ee6834a54d6d3398592dba9557",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_83c70145",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-07-31T15:21:57Z",
+      "side": 1,
+      "message": "Oh, and of course, add the new vbmcd binary to the package.",
+      "parentUuid": "9abe1de1_c3b4d9d2",
+      "revId": "435829d161a0e2ee6834a54d6d3398592dba9557",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
