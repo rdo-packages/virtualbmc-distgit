@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_c3b4d9d2",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-07-31T15:20:44Z",
+      "side": 1,
+      "message": "We need to remove this line, and also add the systemd unit file to the spec (see https://github.com/rdo-infra/example-distgit/blob/rpm-master/openstack-example.spec for a sample)",
+      "revId": "435829d161a0e2ee6834a54d6d3398592dba9557",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
