@@ -17,6 +17,7 @@ License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
 
 Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz
+Source1: %{sname}.service
 
 BuildArch: noarch
 
@@ -31,6 +32,8 @@ BuildRequires: python2-devel
 BuildRequires: python2-pbr
 BuildRequires: python2-setuptools
 BuildRequires: git
+BuildRequires: systemd
+BuildRequires: systemd-units
 
 Requires: libvirt-python
 Requires: python2-pbr
@@ -40,6 +43,7 @@ Requires: python2-cliff >= 2.8.0
 Requires: python-zmq >= 14.3.1
 
 Requires(pre): shadow-utils
+%{?systemd_requires}
 
 %description -n python2-%{sname}
 %{common_desc}
@@ -130,13 +134,16 @@ install -d -m 755 %{buildroot}%{_datadir}/%{sname}
 install -d -m 755 %{buildroot}%{_sharedstatedir}/%{sname}
 install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 
+# Install systemd units
+install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
+
 %if 0%{?with_python3}
 
 %files python3-%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
-%{_bindir}/vbmc-%{python3_version}
 %{_bindir}/vbmcd-3
+%{_bindir}/vbmc-%{python3_version}
 %{_bindir}/vbmcd-%{python3_version}
 %{python3_sitelib}/%{sname}
 %{python3_sitelib}/%{sname}-*.egg-info
@@ -152,6 +159,7 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %license LICENSE
 %{_bindir}/vbmc
 %{_bindir}/vbmcd
+%{_unitdir}/%{sname}.service
 %{python2_sitelib}/%{sname}
 %{python2_sitelib}/%{sname}-*.egg-info
 %exclude %{python2_sitelib}/%{sname}/tests
@@ -163,6 +171,23 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %files -n python-%{sname}-doc
 %license LICENSE
 %doc doc/build/html README.rst
+
+%pre
+getent group %{sname} >/dev/null || groupadd -r %{sname}
+getent passwd %{sname} >/dev/null || \
+    useradd -r -g %{sname} -d /etc/virtualbmc -s /sbin/nologin \
+    -c "Virtual BMC daemon" %{sname}
+
+%post
+%systemd_post %{sname}.service
+
+%preun
+%systemd_preun %{sname}.service
+
+%postun
+userdel %{sname}
+groupdel %{sname}
+%systemd_postun_with_restart %{sname}.service
 
 %changelog
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
