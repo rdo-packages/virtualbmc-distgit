@@ -17,6 +17,7 @@ License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
 
 Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz
+Source1: %{sname}.service
 
 BuildArch: noarch
 
@@ -31,6 +32,8 @@ BuildRequires: python2-devel
 BuildRequires: python2-pbr
 BuildRequires: python2-setuptools
 BuildRequires: git
+BuildRequires: systemd
+BuildRequires: systemd-units
 
 Requires: libvirt-python
 Requires: python2-pbr
@@ -39,6 +42,7 @@ Requires: python2-prettytable
 Requires: python2-six
 
 Requires(pre): shadow-utils
+%{?systemd_requires}
 
 %description -n python2-%{sname}
 %{common_desc}
@@ -112,8 +116,10 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %py3_install
 # rename python3 binary
 pushd %{buildroot}/%{_bindir}
-mv vbmc vbmc-3
-ln -s vbmc-3 vbmc-%{python3_version}
+mv vbmc vbmc-%{python3_version}
+ln -s vbmc-%{python3_version} vbmc-3
+mv vbmcd vbmcd-%{python3_version}
+ln -s vbmcd-%{python3_version} vbmcd-3
 popd
 %endif # with_python3
 
@@ -122,9 +128,31 @@ install -d -m 755 %{buildroot}%{_datadir}/%{sname}
 install -d -m 755 %{buildroot}%{_sharedstatedir}/%{sname}
 install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 
+# Install systemd units
+install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
+
+%pre
+getent group %{sname} >/dev/null || groupadd -r %{sname}
+getent passwd %{sname} >/dev/null || \
+    useradd -r -g %{sname} -d /etc/virtualbmc -s /sbin/nologin \
+    -c "Virtual BMC daemon" %{sname}
+
+%post
+%systemd_post %{sname}.service
+
+%preun
+%systemd_preun %{sname}.service
+
+%postun
+userdel %{sname}
+groupdel %{sname}
+%systemd_postun_with_restart %{sname}.service
+
 %files -n python2-%{sname}
 %license LICENSE
 %{_bindir}/vbmc
+%{_bindir}/vbmcd
+%{_unitdir}/%{sname}.service
 %{python2_sitelib}/%{sname}
 %{python2_sitelib}/%{sname}-*.egg-info
 %exclude %{python2_sitelib}/%{sname}/tests
@@ -138,7 +166,10 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %files python3-%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
+%{_bindir}/vbmcd-3
 %{_bindir}/vbmc-%{python3_version}
+%{_bindir}/vbmcd-%{python3_version}
+%{_unitdir}/%{sname}.service
 %{python3_sitelib}/%{sname}
 %{python3_sitelib}/%{sname}-*.egg-info
 %exclude %{python3_sitelib}/%{sname}/tests
