@@ -22,6 +22,30 @@
       "revId": "b4a0f0a9dce4c70eb6035eb9b6fc4bba3ae7e7c4",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_4c9b51ca",
+        "filename": "virtualbmc.service",
+        "patchSetId": 9
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 551
+      },
+      "writtenOn": "2018-08-08T14:09:40Z",
+      "side": 1,
+      "message": "\u003e We really want to run this daemon as root, do we? Or would we prefer it to run as a regular user?\n\nIt should be able to run under non-root for as long as `qemu:///system` is accessible... That works on my Fedora. Let\u0027s try it out in CI...\n\nI think in the OpenStack installations I\u0027ve encountered, this vbmc thing is typically run as root.\n\n\u003e oes vbmcd need any command-line parameters?\n\nNo, it does not.",
+      "parentUuid": "9abe1de1_ec0d8538",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 24
+      },
+      "revId": "b4a0f0a9dce4c70eb6035eb9b6fc4bba3ae7e7c4",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
