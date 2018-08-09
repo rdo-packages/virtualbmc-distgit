@@ -114,6 +114,8 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 pushd %{buildroot}/%{_bindir}
 mv vbmc vbmc-3
 ln -s vbmc-3 vbmc-%{python3_version}
+mv vbmcd vbmcd-3
+ln -s vbmcd-3 vbmcd-%{python3_version}
 popd
 %endif # with_python3
 
@@ -125,6 +127,7 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %files -n python2-%{sname}
 %license LICENSE
 %{_bindir}/vbmc
+%{_bindir}/vbmcd
 %{python2_sitelib}/%{sname}
 %{python2_sitelib}/%{sname}-*.egg-info
 %exclude %{python2_sitelib}/%{sname}/tests
@@ -139,6 +142,8 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
 %{_bindir}/vbmc-%{python3_version}
+%{_bindir}/vbmcd-3
+%{_bindir}/vbmcd-%{python3_version}
 %{python3_sitelib}/%{sname}
 %{python3_sitelib}/%{sname}-*.egg-info
 %exclude %{python3_sitelib}/%{sname}/tests
