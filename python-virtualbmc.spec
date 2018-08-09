@@ -1,7 +1,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
-# TODO(lucasagomes): VirtualBMC does not support python3 yet because of
-#                    pyghmi, let's skip it for now
+# TODO(etingof): while virtualbmc is py3-worthy, pyghmi is not
+# python3-packaged yet
 %global with_python3 0
 %global sname virtualbmc
 
@@ -107,36 +107,30 @@ Documentation for VirtualBMC.
 rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %install
-%py2_install
 %if 0%{?with_python3}
+
 %py3_install
+
 # rename python3 binary
 pushd %{buildroot}/%{_bindir}
-mv vbmc vbmc-3
-ln -s vbmc-3 vbmc-%{python3_version}
-mv vbmcd vbmcd-3
-ln -s vbmcd-3 vbmcd-%{python3_version}
+mv vbmc vbmc-%{python3_version}
+ln -s vbmc-%{python3_version} vbmc-3
+mv vbmcd vbmcd-%{python3_version}
+ln -s vbmcd-%{python3_version} vbmcd-3
 popd
+
 %endif # with_python3
+
+%py2_install
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_datadir}/%{sname}
 install -d -m 755 %{buildroot}%{_sharedstatedir}/%{sname}
 install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 
-%files -n python2-%{sname}
-%license LICENSE
-%{_bindir}/vbmc
-%{_bindir}/vbmcd
-%{python2_sitelib}/%{sname}
-%{python2_sitelib}/%{sname}-*.egg-info
-%exclude %{python2_sitelib}/%{sname}/tests
-
-%files -n python2-%{sname}-tests
-%license LICENSE
-%{python2_sitelib}/%{sname}/tests
-
 %if 0%{?with_python3}
+
+%py3_install
 
 %files python3-%{sname}
 %license LICENSE
@@ -153,6 +147,18 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %{python3_sitelib}/%{sname}/tests
 
 %endif # with_python3
+
+%files -n python2-%{sname}
+%license LICENSE
+%{_bindir}/vbmc
+%{_bindir}/vbmcd
+%{python2_sitelib}/%{sname}
+%{python2_sitelib}/%{sname}-*.egg-info
+%exclude %{python2_sitelib}/%{sname}/tests
+
+%files -n python2-%{sname}-tests
+%license LICENSE
+%{python2_sitelib}/%{sname}/tests
 
 %files -n python-%{sname}-doc
 %license LICENSE
