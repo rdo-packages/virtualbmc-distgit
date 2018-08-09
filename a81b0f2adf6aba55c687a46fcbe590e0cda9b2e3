@@ -164,6 +164,30 @@
       "revId": "a81b0f2adf6aba55c687a46fcbe590e0cda9b2e3",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_4f31030b",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 551
+      },
+      "writtenOn": "2018-08-09T13:27:59Z",
+      "side": 1,
+      "message": "May be we are bike-shedding here, but if I look at this patch, I see that it\u0027s just about adding systemd unit. Fair and square.\n\nI do not personally see any value in putting multiple *unrelated* changes into a single commit. With bisecting/cherry-picking in mind...\n\nSo could you please share your thoughts - why fixing py3 installation bugs within this patch would be our best bet?\n\n;-)",
+      "parentUuid": "9abe1de1_4f63431b",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 12
+      },
+      "revId": "a81b0f2adf6aba55c687a46fcbe590e0cda9b2e3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
