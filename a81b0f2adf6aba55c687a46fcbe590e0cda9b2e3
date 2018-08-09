@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9abe1de1_af51bf64",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 10
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-08-09T12:43:29Z",
+      "side": 1,
+      "message": "Yes, let\u0027s make it a follow-up patch. python3 enablement will also require reversing the py2/py3_install order, so we can do both in the same change.",
+      "parentUuid": "9abe1de1_6f4607c1",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "a81b0f2adf6aba55c687a46fcbe590e0cda9b2e3",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9abe1de1_2fbfefd1",
         "filename": "python-virtualbmc.spec",
         "patchSetId": 10
