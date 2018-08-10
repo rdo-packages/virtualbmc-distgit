@@ -1,8 +1,9 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
-# TODO(etingof): while virtualbmc is py3-worthy, pyghmi is not
-# python3-packaged yet
-%global with_python3 0
+%if 0%{?fedora}
+%global with_python3 1
+%endif
+
 %global sname virtualbmc
 
 %global common_desc A virtual BMC for controlling virtual machines using IPMI commands.
@@ -68,7 +69,6 @@ BuildRequires: python3-setuptools
 Requires: libvirt-python3
 Requires: python3-pbr
 Requires: python3-six
-# FIXME(lucasagomes): pyghmi does not support Python3 for now
 Requires: python3-pyghmi
 Requires: python3-cliff >= 2.8.0
 Requires: python3-zmq >= 14.3.1
@@ -139,7 +139,7 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 
 %if 0%{?with_python3}
 
-%files python3-%{sname}
+%files -n python3-%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
 %{_bindir}/vbmcd-3
