@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_fd3acde6",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-08-10T13:47:58Z",
+      "side": 1,
+      "message": "This is not going to work once we enable python3. This %py2_install should be in the %install section, and if python3 is enabled this is in the %files python3-virtualbmc section.\n\nSo the structure should be:\n\n%install\n%if 0%{?with_python3}\n...all python3 stuff\n%endif\n%py2_install\n\n# Setup directories\ninstall -d -m ......\n\n%if 0%{?with_python3}\n%files python3-%{sname}\n.....\n%endif\n\n%files python2-%{sname}\n...",
+      "range": {
+        "startLine": 143,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 12
+      },
+      "revId": "f68e6d26e46c8ff0ca682b92eae00a7514b6ab98",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
