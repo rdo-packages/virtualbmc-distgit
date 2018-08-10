@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abe1de1_dd16e954",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 11
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 113
+      },
+      "writtenOn": "2018-08-10T13:49:37Z",
+      "side": 1,
+      "message": "Just like %py2_install, this has to be in the %install section. This is why it is failing in CI.",
+      "range": {
+        "startLine": 165,
+        "startChar": 0,
+        "endLine": 166,
+        "endChar": 72
+      },
+      "revId": "3ac34fa28adf706c418834caca501667592b985a",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
