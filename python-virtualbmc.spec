@@ -1,8 +1,6 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
-# TODO(etingof): while virtualbmc is py3-worthy, pyghmi is not
-# python3-packaged yet
-%global with_python3 0
+%global with_python3 1
 %global sname virtualbmc
 
 %global common_desc A virtual BMC for controlling virtual machines using IPMI commands.
@@ -68,7 +66,6 @@ Requires: libvirt-python3
 Requires: python3-pbr
 Requires: python3-prettytable
 Requires: python3-six
-# FIXME(lucasagomes): pyghmi does not support Python3 for now
 Requires: python3-pyghmi
 
 %description -n python3-%{sname}
@@ -127,7 +124,7 @@ mv vbmcd vbmcd-%{python3_version}
 ln -s vbmcd-%{python3_version} vbmcd-3
 popd
 
-%files python3-%{sname}
+%files -n python3-%{sname}
 %license LICENSE
 %{_bindir}/vbmc-3
 %{_bindir}/vbmcd-3
