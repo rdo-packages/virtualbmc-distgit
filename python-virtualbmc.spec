@@ -35,8 +35,9 @@ BuildRequires: git
 Requires: libvirt-python
 Requires: python2-pbr
 Requires: python2-pyghmi
-Requires: python2-prettytable
 Requires: python2-six
+Requires: python2-cliff >= 2.8.0
+Requires: python-zmq >= 14.3.1
 
 Requires(pre): shadow-utils
 
@@ -62,10 +63,11 @@ BuildRequires: python3-setuptools
 
 Requires: libvirt-python3
 Requires: python3-pbr
-Requires: python3-prettytable
 Requires: python3-six
 # FIXME(lucasagomes): pyghmi does not support Python3 for now
 Requires: python3-pyghmi
+Requires: python3-cliff >= 2.8.0
+Requires: python3-zmq >= 14.3.1
 
 %description -n python3-%{sname}
 %{common_desc}
