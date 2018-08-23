@@ -1,5 +1,6 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
+
 # TODO(lucasagomes): VirtualBMC does not support python3 yet because of
 #                    pyghmi, let's skip it for now
 %global with_python3 0
