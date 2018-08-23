@@ -1,0 +1,9 @@
+Code-Review+2: Javier Peña <jpena@redhat.com>
+Code-Review+1: dtantsur <divius.inside@gmail.com>
+Workflow+1: Javier Peña <jpena@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 23 Aug 2018 08:38:02 +0000
+Reviewed-on: https://review.rdoproject.org/r/14221
+Project: openstack/virtualbmc-distgit
+Branch: refs/heads/rpm-master
