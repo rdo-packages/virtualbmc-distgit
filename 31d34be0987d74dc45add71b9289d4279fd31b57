@@ -16,6 +16,24 @@
       "revId": "31d34be0987d74dc45add71b9289d4279fd31b57",
       "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9abe1de1_326e1dca",
+        "filename": "python-virtualbmc.spec",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 403
+      },
+      "writtenOn": "2018-08-28T15:11:06Z",
+      "side": 1,
+      "message": ":) hmm missed while updating",
+      "parentUuid": "9abe1de1_9248495d",
+      "revId": "31d34be0987d74dc45add71b9289d4279fd31b57",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
     }
   ]
 }
