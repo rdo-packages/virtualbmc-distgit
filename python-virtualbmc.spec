@@ -10,8 +10,8 @@
 %global common_desc_tests Tests for VirtualBMC.
 
 Name: python-%{sname}
-Version: XXX
-Release: XXX
+Version: 1.4.0
+Release: 1%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
@@ -154,5 +154,8 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 %doc doc/build/html README.rst
 
 %changelog
+* Tue Aug 28 2018 RDO <dev@lists.rdoproject.org> 1.4.0-1
+- Update to 1.4.0
+
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
 - Initial package.
