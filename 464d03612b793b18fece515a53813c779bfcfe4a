@@ -1,0 +1,11 @@
+Code-Review+2: hguemar <hguemar@fedoraproject.org>
+Verified-1: Zuul CI <zuul@review.rdoproject.org>
+Code-Review+2: Yatin Karel <ykarel@redhat.com>
+Code-Review+2: Javier Peña <jpena@redhat.com>
+Verified+2: Javier Peña <jpena@redhat.com>
+Workflow+1: Javier Peña <jpena@redhat.com>
+Submitted-by: Javier Peña <jpena@redhat.com>
+Submitted-at: Wed, 29 Aug 2018 09:03:50 +0000
+Reviewed-on: https://review.rdoproject.org/r/16006
+Project: openstack/virtualbmc-distgit
+Branch: refs/heads/rocky-rdo
