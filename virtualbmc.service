@@ -4,8 +4,8 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-User=virtualbmc
-Group=virtualbmc
+User=stack
+Group=stack
 ExecStart=/usr/bin/vbmcd
 Restart=on-failure
 

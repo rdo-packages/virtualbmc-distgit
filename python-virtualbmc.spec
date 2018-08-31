@@ -6,6 +6,8 @@
 
 %global sname virtualbmc
 
+%global uname stack
+
 %global common_desc A virtual BMC for controlling virtual machines using IPMI commands.
 
 %global common_desc_tests Tests for VirtualBMC.
@@ -173,10 +175,9 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 %doc doc/build/html README.rst
 
 %pre -n python2-%{sname}
-getent group %{sname} >/dev/null || groupadd -r %{sname}
-getent passwd %{sname} >/dev/null || \
-    useradd -r -g %{sname} -d /etc/virtualbmc -s /sbin/nologin \
-    -c "Virtual BMC daemon" %{sname}
+getent group %{uname} >/dev/null || groupadd -r %{uname}
+getent passwd %{uname} >/dev/null || \
+    useradd -r -g %{uname} -d /home/%{uname} -s /sbin/nologin %{uname}
 
 %post -n python2-%{sname}
 %systemd_post %{sname}.service
