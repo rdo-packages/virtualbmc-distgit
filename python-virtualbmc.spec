@@ -172,12 +172,6 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 %license LICENSE
 %doc doc/build/html README.rst
 
-%pre -n python2-%{sname}
-getent group %{sname} >/dev/null || groupadd -r %{sname}
-getent passwd %{sname} >/dev/null || \
-    useradd -r -g %{sname} -d /etc/virtualbmc -s /sbin/nologin \
-    -c "Virtual BMC daemon" %{sname}
-
 %post -n python2-%{sname}
 %systemd_post %{sname}.service
 
