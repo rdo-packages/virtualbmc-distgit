@@ -4,10 +4,11 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-User=virtualbmc
-Group=virtualbmc
-ExecStart=/usr/bin/vbmcd
-Restart=on-failure
+User=root
+Group=root
+ExecStart=/usr/bin/vbmcd --foreground
+Restart=always
+RestartSec=1
 
 [Install]
 WantedBy=multi-user.target
