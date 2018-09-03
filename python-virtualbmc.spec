@@ -12,7 +12,7 @@
 
 Name: python-%{sname}
 Version: 1.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
