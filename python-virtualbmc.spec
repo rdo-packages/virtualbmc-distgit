@@ -38,6 +38,7 @@ BuildRequires: systemd-units
 
 Requires: libvirt-python
 Requires: python2-pbr
+Requires: python2-setuptools
 Requires: python2-pyghmi
 Requires: python2-six
 Requires: python2-cliff >= 2.8.0
@@ -68,6 +69,7 @@ BuildRequires: python3-setuptools
 
 Requires: libvirt-python3
 Requires: python3-pbr
+Requires: python3-setuptools
 Requires: python3-six
 Requires: python3-pyghmi
 Requires: python3-cliff >= 2.8.0
