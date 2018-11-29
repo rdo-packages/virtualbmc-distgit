@@ -1,8 +1,15 @@
-%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
-
-%if 0%{?fedora}
-%global with_python3 1
+# Macros for py2/py3 compatibility
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global pyver %{python3_pkgversion}
+%else
+%global pyver 2
 %endif
+%global pyver_bin python%{pyver}
+%global pyver_sitelib %python%{pyver}_sitelib
+%global pyver_install %py%{pyver}_install
+%global pyver_build %py%{pyver}_build
+# End of macros for py2/py3 compatibility
+%{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global sname virtualbmc
 
@@ -25,71 +32,52 @@ BuildArch: noarch
 %description
 %{common_desc}
 
-%package -n python2-%{sname}
+%package -n python%{pyver}-%{sname}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
-%{?python_provide:%python_provide python2-%{sname}}
+%{?python_provide:%python_provide python%{pyver}-%{sname}}
+%if %{pyver} == 3
+Obsoletes: python2-%{sname} < %{version}-%{release}
+%endif
 
-BuildRequires: python2-devel
-BuildRequires: python2-pbr
-BuildRequires: python2-setuptools
+BuildRequires: python%{pyver}-devel
+BuildRequires: python%{pyver}-pbr
+BuildRequires: python%{pyver}-setuptools
 BuildRequires: git
 BuildRequires: systemd
 BuildRequires: systemd-units
 
+Requires: python%{pyver}-pbr
+Requires: python%{pyver}-pyghmi
+Requires: python%{pyver}-six
+Requires: python%{pyver}-cliff >= 2.8.0
+
+# Handle python2 exception
+%if %{pyver} == 2
 Requires: libvirt-python
-Requires: python2-pbr
-Requires: python2-pyghmi
-Requires: python2-six
-Requires: python2-cliff >= 2.8.0
 Requires: python-zmq >= 14.3.1
+%else
+Requires: python%{pyver}-libvirt
+Requires: python%{pyver}-zmq >= 14.3.1
+%endif
 
 Requires(pre): shadow-utils
 %{?systemd_requires}
 
-%description -n python2-%{sname}
+%description -n python%{pyver}-%{sname}
 %{common_desc}
 
-%package -n python2-%{sname}-tests
+%package -n python%{pyver}-%{sname}-tests
 Summary: VirtualBMC tests
-Requires: python2-%{sname} = %{version}-%{release}
+Requires: python%{pyver}-%{sname} = %{version}-%{release}
 
-%description -n python2-%{sname}-tests
+%description -n python%{pyver}-%{sname}-tests
 %{common_desc_tests}
-
-%if 0%{?with_python3}
-
-%package -n python3-%{sname}
-Summary: A virtual BMC for controlling virtual machines using IPMI commands
-
-%{?python_provide:%python_provide python3-%{sname}}
-BuildRequires: python3-devel
-BuildRequires: python3-pbr
-BuildRequires: python3-setuptools
-
-Requires: libvirt-python3
-Requires: python3-pbr
-Requires: python3-six
-Requires: python3-pyghmi
-Requires: python3-cliff >= 2.8.0
-Requires: python3-zmq >= 14.3.1
-
-%description -n python3-%{sname}
-%{common_desc}
-
-%package -n python3-%{sname}-tests
-Summary: VirtualBMC tests
-Requires: python3-%{sname} = %{version}-%{release}
-
-%description -n python3-%{sname}-tests
-%{common_desc_tests}
-
-%endif # with_python3
 
 %package -n python-%{sname}-doc
 Summary: VirtualBMC documentation
 
-BuildRequires: python2-sphinx
-BuildRequires: python2-openstackdocstheme
+BuildRequires: python%{pyver}-sphinx
+BuildRequires: python%{pyver}-openstackdocstheme
 BuildRequires: openstack-macros
 
 %description -n python-%{sname}-doc
@@ -102,32 +90,19 @@ Documentation for VirtualBMC.
 %py_req_cleanup
 
 %build
-%py2_build
-%if 0%{?with_python3}
-%py3_build
-%endif # with_python3
+%{pyver_build}
 
 # generate html docs
-%{__python2} setup.py build_sphinx -b html
-# remove the sphinx-build leftovers
+%{pyver_bin} setup.py build_sphinx -b html
+# remove the sphinx-build-%{pyver} leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 
 %install
-%if 0%{?with_python3}
+%{pyver_install}
 
-%py3_install
-
-# rename python3 binary
-pushd %{buildroot}/%{_bindir}
-mv vbmc vbmc-%{python3_version}
-ln -s vbmc-%{python3_version} vbmc-3
-mv vbmcd vbmcd-%{python3_version}
-ln -s vbmcd-%{python3_version} vbmcd-3
-popd
-
-%endif # with_python3
-
-%py2_install
+# Create a versioned binary for backwards compatibility until everything is pure py3
+ln -s vbmc %{buildroot}%{_bindir}/vbmc-%{pyver}
+ln -s vbmcd %{buildroot}%{_bindir}/vbmcd-%{pyver}
 
 # Setup directories
 install -d -m 755 %{buildroot}%{_datadir}/%{sname}
@@ -137,48 +112,32 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{sname}
 # Install systemd units
 install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 
-%if 0%{?with_python3}
-
-%files -n python3-%{sname}
-%license LICENSE
-%{_bindir}/vbmc-3
-%{_bindir}/vbmcd-3
-%{_bindir}/vbmc-%{python3_version}
-%{_bindir}/vbmcd-%{python3_version}
-%{python3_sitelib}/%{sname}
-%{python3_sitelib}/%{sname}-*.egg-info
-%exclude %{python3_sitelib}/%{sname}/tests
-
-%files -n python3-%{sname}-tests
-%license LICENSE
-%{python3_sitelib}/%{sname}/tests
-
-%endif # with_python3
-
-%files -n python2-%{sname}
+%files -n python%{pyver}-%{sname}
 %license LICENSE
 %{_bindir}/vbmc
+%{_bindir}/vbmc-%{pyver}
 %{_bindir}/vbmcd
+%{_bindir}/vbmcd-%{pyver}
 %{_unitdir}/%{sname}.service
-%{python2_sitelib}/%{sname}
-%{python2_sitelib}/%{sname}-*.egg-info
-%exclude %{python2_sitelib}/%{sname}/tests
+%{pyver_sitelib}/%{sname}
+%{pyver_sitelib}/%{sname}-*.egg-info
+%exclude %{pyver_sitelib}/%{sname}/tests
 
-%files -n python2-%{sname}-tests
+%files -n python%{pyver}-%{sname}-tests
 %license LICENSE
-%{python2_sitelib}/%{sname}/tests
+%{pyver_sitelib}/%{sname}/tests
 
 %files -n python-%{sname}-doc
 %license LICENSE
 %doc doc/build/html README.rst
 
-%post -n python2-%{sname}
+%post -n python%{pyver}-%{sname}
 %systemd_post %{sname}.service
 
-%preun -n python2-%{sname}
+%preun -n python%{pyver}-%{sname}
 %systemd_preun %{sname}.service
 
-%postun -n python2-%{sname}
+%postun -n python%{pyver}-%{sname}
 %systemd_postun_with_restart %{sname}.service
 
 %changelog
