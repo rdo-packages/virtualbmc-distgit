@@ -11,6 +11,8 @@
 # End of macros for py2/py3 compatibility
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
+%global with_doc 1
+
 %global sname virtualbmc
 
 %global common_desc A virtual BMC for controlling virtual machines using IPMI commands.
@@ -43,6 +45,7 @@ BuildRequires: python%{pyver}-devel
 BuildRequires: python%{pyver}-pbr
 BuildRequires: python%{pyver}-setuptools
 BuildRequires: git
+BuildRequires: openstack-macros
 BuildRequires: systemd
 BuildRequires: systemd-units
 
@@ -73,15 +76,16 @@ Requires: python%{pyver}-%{sname} = %{version}-%{release}
 %description -n python%{pyver}-%{sname}-tests
 %{common_desc_tests}
 
+%if 0%{?with_doc}
 %package -n python-%{sname}-doc
 Summary: VirtualBMC documentation
 
 BuildRequires: python%{pyver}-sphinx
 BuildRequires: python%{pyver}-openstackdocstheme
-BuildRequires: openstack-macros
 
 %description -n python-%{sname}-doc
 Documentation for VirtualBMC.
+%endif
 
 %prep
 %autosetup -n %{sname}-%{upstream_version} -S git
@@ -92,10 +96,12 @@ Documentation for VirtualBMC.
 %build
 %{pyver_build}
 
+%if 0%{?with_doc}
 # generate html docs
 %{pyver_bin} setup.py build_sphinx -b html
 # remove the sphinx-build-%{pyver} leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
+%endif
 
 %install
 %{pyver_install}
@@ -127,9 +133,11 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 %license LICENSE
 %{pyver_sitelib}/%{sname}/tests
 
+%if 0%{?with_doc}
 %files -n python-%{sname}-doc
 %license LICENSE
 %doc doc/build/html README.rst
+%endif
 
 %post -n python%{pyver}-%{sname}
 %systemd_post %{sname}.service
