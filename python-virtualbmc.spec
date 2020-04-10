@@ -51,7 +51,6 @@ BuildRequires: systemd-units
 
 Requires: python%{pyver}-pbr
 Requires: python%{pyver}-pyghmi
-Requires: python%{pyver}-six
 Requires: python%{pyver}-cliff >= 2.8.0
 
 # Handle python2 exception
@@ -98,7 +97,7 @@ Documentation for VirtualBMC.
 
 %if 0%{?with_doc}
 # generate html docs
-%{pyver_bin} setup.py build_sphinx -b html
+sphinx-build-%{pyver} -W -b html doc/source doc/build/html
 # remove the sphinx-build-%{pyver} leftovers
 rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
