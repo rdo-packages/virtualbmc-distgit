@@ -51,7 +51,6 @@ BuildRequires: systemd-units
 
 Requires: python%{pyver}-pbr
 Requires: python%{pyver}-pyghmi
-Requires: python%{pyver}-six
 Requires: python%{pyver}-cliff >= 2.8.0
 
 # Handle python2 exception
