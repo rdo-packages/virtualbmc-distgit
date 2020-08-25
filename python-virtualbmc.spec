@@ -36,11 +36,10 @@ BuildRequires: openstack-macros
 BuildRequires: systemd
 BuildRequires: systemd-units
 
-Requires: python3-pbr
-Requires: python3-pyghmi
 Requires: python3-cliff >= 2.8.0
-
-Requires: python3-libvirt
+Requires: python3-libvirt >= 3.7.0
+Requires: python3-pbr >= 2.0.0
+Requires: python3-pyghmi >= 1.0.22
 Requires: python3-zmq >= 14.3.1
 
 Requires(pre): shadow-utils
