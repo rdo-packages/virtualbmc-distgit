@@ -39,8 +39,8 @@ BuildRequires: systemd-units
 Requires: python3-cliff >= 2.8.0
 Requires: python3-libvirt >= 3.7.0
 Requires: python3-pbr >= 2.0.0
-Requires: python3-pyghmi >= 1.0.22
-Requires: python3-zmq >= 14.3.1
+Requires: python3-pyghmi >= 1.2.0
+Requires: python3-zmq >= 19.0.0
 
 Requires(pre): shadow-utils
 %{?systemd_requires}
