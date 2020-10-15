@@ -1,3 +1,5 @@
+%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global with_doc 1
@@ -10,15 +12,26 @@
 
 Name: python-%{sname}
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 License: ASL 2.0
 URL: http://launchpad.net/%{sname}/
 
 Source0: http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz
 Source1: %{sname}.service
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        http://tarballs.openstack.org/%{sname}/%{sname}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+%endif
 
 BuildArch: noarch
+
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+BuildRequires:  openstack-macros
+%endif
 
 %description
 %{common_desc}
@@ -67,6 +80,10 @@ Documentation for VirtualBMC.
 %endif
 
 %prep
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
 %autosetup -n %{sname}-%{upstream_version} -S git
 
 # Let's handle dependencies ourseleves
@@ -128,6 +145,9 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 %systemd_postun_with_restart %{sname}.service
 
 %changelog
+* Wed Oct 21 2020 Joel Capitao <jcapitao@redhat.com> 2.2.0-2
+- Enable sources tarball validation using GPG signature.
+
 * Mon Oct 05 2020 RDO <dev@lists.rdoproject.org> 2.2.0-1
 - Update to 2.2.0
 
