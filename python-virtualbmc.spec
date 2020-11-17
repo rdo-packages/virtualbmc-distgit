@@ -44,7 +44,7 @@ Obsoletes: python2-%{sname} < %{version}-%{release}
 BuildRequires: python3-devel
 BuildRequires: python3-pbr
 BuildRequires: python3-setuptools
-BuildRequires: git
+BuildRequires: git-core
 BuildRequires: openstack-macros
 BuildRequires: systemd
 BuildRequires: systemd-units
