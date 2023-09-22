@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+%global sources_gpg_sign 0x815afec729392386480e076dcc0dfe2d21c023c9
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
@@ -17,8 +17,8 @@
 %global common_desc_tests Tests for VirtualBMC.
 
 Name: python-%{sname}
-Version: XXX
-Release: XXX
+Version: 3.1.0
+Release: 1%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 License: Apache-2.0
 URL: http://launchpad.net/%{sname}/
@@ -160,5 +160,8 @@ install -p -D -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/%{sname}.service
 %systemd_postun_with_restart %{sname}.service
 
 %changelog
+* Fri Sep 22 2023 RDO <dev@lists.rdoproject.org> 3.1.0-1
+- Update to 3.1.0
+
 * Tue Nov 15 2016 Lucas Alvares Gomes <lucasagomes@gmail.com> 0.1.0-1
 - Initial package.
